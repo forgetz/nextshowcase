@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
+import EXIF from 'exif-js';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const imagesDirectory = path.join(process.cwd(), 'public/images');
@@ -11,6 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(500).json({ error: 'Failed to load images' });
     }
 
+    
     // Create an array of image objects
     const images = filenames.map((filename, index) => {
       const public_id = filename // Assuming filename is in the format public_id.format
