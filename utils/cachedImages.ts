@@ -6,17 +6,30 @@ let cachedResults;
 export default async function getResults() {
   if (!cachedResults) {
     // Read images from the /public/images directory
-    const imagesDirectory = path.join(process.cwd(), 'public', 'images');
+    const imagesDirectory = path.join(process.cwd(), 'public/images');
     const filenames = fs.readdirSync(imagesDirectory);
 
     // Map filenames to an array of image objects
     const fetchedResults = filenames.map((filename) => ({
-      public_id: filename, // Remove file extension
-      format: '.png', // Get file format
-      // Add other properties if needed (e.g., height, width)
+      public_id: filename,
+      format: '.png', 
+      height: '512',
+      width: '512'
     }));
 
-    cachedResults = fetchedResults;
+    const images = filenames.map((filename, index) => {
+      const public_id = filename // Assuming filename is in the format public_id.format
+      const format = "png"
+      return {
+        id: index,
+        public_id,
+        format,
+        height: 512, // Set a default height or retrieve it if available
+        width: 512,  // Set a default width or retrieve it if available
+      };
+    });
+
+    cachedResults = images;
   }
 
   return cachedResults;

@@ -13,14 +13,10 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
 
   console.log('currentPhoto', currentPhoto);
 
-  const currentPhotoUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/images/${currentPhoto}`;
-
   return (
     <>
       <Head>
-        <title>Next.js Conf 2022 Photos</title>
-        <meta property="og:image" content={currentPhotoUrl} />
-        <meta name="twitter:image" content={currentPhotoUrl} />
+        <title>Next.js Photos</title>
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
         <Carousel currentPhoto={currentPhoto} index={index} />
@@ -39,8 +35,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   for (let result of results) {
     reducedResults.push({
       id: i,
-      height: '512',
-      width: '512',
+      height: result.height,
+      width: result.width,
       public_id: result.public_id,
       format: result.format,
     });
