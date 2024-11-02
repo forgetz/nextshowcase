@@ -24,13 +24,14 @@ export default async function getResults() {
         id: index,
         public_id,
         format,
-        height: 512, // Set a default height or retrieve it if available
-        width: 512,  // Set a default width or retrieve it if available
+        height: '512', // Set a default height or retrieve it if available
+        width: '512',  // Set a default width or retrieve it if available
       };
     });
-
+    console.log(images)
     cachedResults = images;
   }
 
+  console.log(cachedResults)
   return cachedResults;
 }

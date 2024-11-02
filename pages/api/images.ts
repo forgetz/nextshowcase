@@ -14,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Create an array of image objects
     const images = filenames.map((filename, index) => {
       const public_id = filename // Assuming filename is in the format public_id.format
-      const format = "png"
+      const format = ".png"
       return {
         id: index,
         public_id,

@@ -29,7 +29,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   return (
     <>
       <Head>
-        <title>Next.js Conf 2022 Photos</title>
+        <title>Gallery</title>
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
         {photoId && (
@@ -45,8 +45,10 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           {images.map(({ id, public_id, format, blurDataUrl }) => (
             <Link
               key={public_id}
-              href={`/?photoId=${id}`}
-              as={`/p/${id}`}
+              // href={`/?photoId=${id}`}
+              href={`/images/${public_id}`}
+              target="_blank"
+              //as={`/p/${id}`}
               ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
               shallow
               className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"

@@ -1,6 +1,6 @@
 module.exports = {
   images: {
     formats: ["image/avif", "image/webp"],
-    domains: ['localhost', 'vercel.app'],
+    domains: ['localhost', 'nextshowcase.vercel.app'],
   },
 };
