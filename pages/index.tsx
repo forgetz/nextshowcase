@@ -11,6 +11,8 @@ import cloudinary from "../utils/cloudinary";
 import getBase64ImageUrl from "../utils/generateBlurPlaceholder";
 import type { ImageProps } from "../utils/types";
 import { useLastViewedPhoto } from "../utils/useLastViewedPhoto";
+import fs from 'fs';
+import path from 'path';
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
@@ -80,9 +82,19 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
 
 export default Home;
 
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/images`);
-  const images: ImageProps[] = await res.json();
+export const getStaticProps = async () => {
+  const imagesDirectory = path.join(process.cwd(), 'public', 'images');
+  const filenames = fs.readdirSync(imagesDirectory);
+
+  // Map filenames to an array of image objects
+  const images: ImageProps[] = filenames.map((filename, index) => ({
+    id: index, // Use filename without extension as ID
+    public_id: filename,
+    format: '.png',
+    height: '512',
+    width: '512',
+    blurDataUrl: '', // Placeholder for blurDataUrl if needed
+  }));
 
   // Assuming you want to generate blurDataUrl for each image
   const blurImagePromises = images.map((image: ImageProps) => {
@@ -99,4 +111,4 @@ export async function getStaticProps() {
       images,
     },
   };
-}
+};

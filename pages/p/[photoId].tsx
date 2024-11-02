@@ -39,8 +39,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   for (let result of results) {
     reducedResults.push({
       id: i,
-      height: result.height,
-      width: result.width,
+      height: '512',
+      width: '512',
       public_id: result.public_id,
       format: result.format,
     });
