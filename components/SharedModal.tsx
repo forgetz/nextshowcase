@@ -14,7 +14,6 @@ import { variants } from "../utils/animationVariants";
 import downloadPhoto from "../utils/downloadPhoto";
 import { range } from "../utils/range";
 import type { ImageProps, SharedModalProps } from "../utils/types";
-import Twitter from "./Icons/Twitter";
 
 export default function SharedModal({
   index,
@@ -46,6 +45,7 @@ export default function SharedModal({
   });
 
   let currentImage = images ? images[index] : currentPhoto;
+  console.log('currentImage', currentImage)
 
   return (
     <MotionConfig
@@ -72,15 +72,13 @@ export default function SharedModal({
                 className="absolute"
               >
                 <Image
-                  src={`https://res.cloudinary.com/${
-                    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                  }/image/upload/c_scale,${navigation ? "w_1280" : "w_1920"}/${
-                    currentImage.public_id
-                  }.${currentImage.format}`}
+                  src={`${
+                    process.env.NEXT_PUBLIC_BASE_URL
+                  }/images/${currentImage.public_id}`}
                   width={navigation ? 1280 : 1920}
                   height={navigation ? 853 : 1280}
                   priority
-                  alt="Next.js Conf image"
+                  alt=""
                   onLoad={() => setLoaded(true)}
                 />
               </motion.div>
@@ -116,9 +114,9 @@ export default function SharedModal({
                 </>
               )}
               <div className="absolute top-0 right-0 flex items-center gap-2 p-3 text-white">
-                {navigation ? (
+                
                   <a
-                    href={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${currentImage.public_id}.${currentImage.format}`}
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${currentImage.public_id}`}
                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
                     target="_blank"
                     title="Open fullsize version"
@@ -126,17 +124,7 @@ export default function SharedModal({
                   >
                     <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                   </a>
-                ) : (
-                  <a
-                    href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20pic%20from%20Next.js%20Conf!%0A%0Ahttps://nextjsconf-pics.vercel.app/p/${index}`}
-                    className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
-                    target="_blank"
-                    title="Open fullsize version"
-                    rel="noreferrer"
-                  >
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                )}
+                
                 <button
                   onClick={() =>
                     downloadPhoto(
@@ -203,7 +191,7 @@ export default function SharedModal({
                             ? "brightness-110 hover:brightness-110"
                             : "brightness-50 contrast-125 hover:brightness-75"
                         } h-full transform object-cover transition`}
-                        src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_180/${public_id}.${format}`}
+                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${public_id}`}
                       />
                     </motion.button>
                   ))}

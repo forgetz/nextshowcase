@@ -4,11 +4,8 @@ let cachedResults;
 
 export default async function getResults() {
   if (!cachedResults) {
-    const fetchedResults = await cloudinary.v2.search
-      .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
-      .sort_by("public_id", "desc")
-      .max_results(400)
-      .execute();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/images`);
+    const fetchedResults = await response.json();
 
     cachedResults = fetchedResults;
   }
