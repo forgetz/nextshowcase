@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
-import EXIF from 'exif-js';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const imagesDirectory = path.join(process.cwd(), 'public/images');
